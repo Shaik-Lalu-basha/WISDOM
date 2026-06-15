@@ -1,0 +1,234 @@
+/* ============================================================
+   WISDOM HIGH SCHOOL - Pages Stylesheet
+   Inner page styles: About, Admissions, Academics, Gallery, Contact
+   ============================================================ */
+
+/* ── Page Hero Banner ── */
+.page-hero {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 60%, var(--accent) 100%);
+  padding: 80px 0 60px;
+  position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='40' cy='40' r='30'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.page-hero-content { position: relative; z-index: 1; }
+.page-hero h1 { color: var(--white); font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 12px; }
+.page-hero p { color: rgba(255,255,255,0.8); font-size: 1rem; max-width: 500px; }
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 20px;
+}
+.breadcrumb a { color: rgba(255,255,255,0.7); font-size: 0.85rem; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--secondary); }
+.breadcrumb span { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+.breadcrumb .current { color: var(--secondary); font-size: 0.85rem; font-weight: 600; }
+
+/* ── About Page ── */
+.vision-mission-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+}
+.vm-card {
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+}
+.dark-mode .vm-card { border-color: #2D3748; }
+.vm-card-header {
+  padding: 28px 32px;
+  display: flex; align-items: center; gap: 16px;
+}
+.vm-card-header.vision { background: linear-gradient(135deg, var(--primary), var(--primary-light)); }
+.vm-card-header.mission { background: linear-gradient(135deg, var(--accent), #e74c3c); }
+.vm-icon { font-size: 2rem; }
+.vm-card-header h3 { color: var(--white); font-size: 1.3rem; }
+.vm-card-body { background: var(--white); padding: 28px 32px; }
+.dark-mode .vm-card-body { background: #1A2535; }
+.vm-card-body p { color: var(--text-muted); line-height: 1.8; }
+.vm-points { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+.vm-point { display: flex; align-items: flex-start; gap: 10px; }
+.vm-point::before { content: '✦'; color: var(--secondary); flex-shrink: 0; margin-top: 2px; }
+
+/* Management Team */
+.team-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 28px;
+}
+.team-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+  text-align: center; transition: var(--transition);
+}
+.dark-mode .team-card { background: #1A2535; border-color: #2D3748; }
+.team-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.team-avatar {
+  height: 180px; background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  display: flex; align-items: center; justify-content: center; font-size: 4rem;
+}
+.team-info { padding: 20px; }
+.team-info h3 { font-size: 1rem; margin-bottom: 4px; }
+.team-info .team-role { color: var(--secondary); font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.08em; }
+.team-info p { color: var(--text-muted); font-size: 0.82rem; }
+.team-qual { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; justify-content: center; }
+.qual-tag { background: var(--light); color: var(--primary); font-size: 0.72rem; padding: 3px 10px; border-radius: 50px; border: 1px solid var(--border); }
+.dark-mode .qual-tag { background: rgba(255,255,255,0.08); }
+
+/* ── Admissions Page ── */
+.admission-steps { display: flex; flex-direction: column; gap: 0; position: relative; }
+.admission-steps::before {
+  content: ''; position: absolute;
+  left: 28px; top: 36px; bottom: 36px;
+  width: 2px; background: linear-gradient(to bottom, var(--primary), var(--secondary));
+}
+.admission-step {
+  display: flex; gap: 28px; align-items: flex-start;
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: 28px; margin-bottom: 16px; box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border); transition: var(--transition); position: relative; z-index: 1;
+}
+.dark-mode .admission-step { background: #1A2535; border-color: #2D3748; }
+.admission-step:hover { transform: translateX(8px); border-left: 3px solid var(--primary); }
+.step-num {
+  width: 56px; height: 56px; flex-shrink: 0;
+  background: var(--primary); color: white;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1.3rem; font-weight: 700;
+  border: 4px solid var(--white); box-shadow: var(--shadow-sm);
+}
+.step-content h3 { font-size: 1.1rem; margin-bottom: 6px; color: var(--primary); }
+.dark-mode .step-content h3 { color: var(--secondary); }
+.step-content p { color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
+.step-badge { margin-top: 10px; display: inline-block; }
+.step-badge span {
+  background: rgba(26,60,110,0.1); color: var(--primary);
+  font-size: 0.75rem; padding: 3px 10px; border-radius: 50px; margin-right: 6px;
+}
+
+.fee-table-wrap { overflow-x: auto; }
+.fee-table {
+  width: 100%; border-collapse: collapse;
+  background: var(--white); border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.dark-mode .fee-table { background: #1A2535; }
+.fee-table th {
+  background: var(--primary); color: white;
+  padding: 16px 20px; text-align: left; font-size: 0.875rem;
+}
+.fee-table td { padding: 14px 20px; border-bottom: 1px solid var(--border); font-size: 0.875rem; color: var(--text); }
+.dark-mode .fee-table td { border-color: #2D3748; color: var(--dark); }
+.fee-table tr:hover td { background: rgba(26,60,110,0.04); }
+
+/* Online Form */
+.online-form-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: 40px; box-shadow: var(--shadow-md); border: 1px solid var(--border);
+}
+.dark-mode .online-form-card { background: #1A2535; border-color: #2D3748; }
+.form-section-title {
+  font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--primary); margin: 24px 0 12px;
+  padding-bottom: 8px; border-bottom: 2px solid var(--secondary);
+}
+.dark-mode .form-section-title { color: var(--secondary); }
+.form-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.doc-upload {
+  border: 2px dashed var(--border); border-radius: var(--radius);
+  padding: 24px; text-align: center; cursor: pointer;
+  transition: var(--transition); background: var(--light);
+}
+.doc-upload:hover { border-color: var(--primary); background: rgba(26,60,110,0.03); }
+.doc-upload .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+.doc-upload p { font-size: 0.82rem; color: var(--text-muted); }
+.doc-upload span { color: var(--primary); font-weight: 600; }
+
+/* ── Academics Page ── */
+.curriculum-tabs { display: flex; gap: 6px; margin-bottom: 32px; flex-wrap: wrap; }
+.curr-tab {
+  padding: 10px 22px; border-radius: 8px; font-size: 0.875rem; font-weight: 600;
+  border: 2px solid var(--border); color: var(--text-muted); transition: var(--transition);
+}
+.curr-tab.active, .curr-tab:hover { background: var(--primary); color: white; border-color: var(--primary); }
+.curr-panel { display: none; }
+.curr-panel.active { display: block; }
+
+.subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+.subject-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 20px 16px; text-align: center;
+  box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+  transition: var(--transition);
+}
+.dark-mode .subject-card { background: #1A2535; border-color: #2D3748; }
+.subject-card:hover { border-color: var(--primary); transform: translateY(-4px); }
+.subject-card .subj-icon { font-size: 2rem; margin-bottom: 10px; }
+.subject-card h4 { font-size: 0.875rem; color: var(--text); }
+.dark-mode .subject-card h4 { color: var(--dark); }
+
+/* Topper Cards */
+.toppers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+.topper-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: 24px 16px; text-align: center;
+  box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+  transition: var(--transition); position: relative; overflow: hidden;
+}
+.dark-mode .topper-card { background: #1A2535; border-color: #2D3748; }
+.topper-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+.topper-rank {
+  position: absolute; top: 12px; right: 12px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--secondary); color: var(--dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700;
+}
+.topper-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--light); margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; border: 3px solid var(--secondary);
+}
+.topper-card h4 { font-size: 0.9rem; margin-bottom: 4px; }
+.topper-percent { font-size: 1.4rem; font-weight: 700; color: var(--primary); }
+.dark-mode .topper-percent { color: var(--secondary); }
+.topper-class { font-size: 0.75rem; color: var(--text-muted); }
+
+/* ── Gallery Page ── */
+.gallery-categories { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+.cat-btn {
+  padding: 8px 20px; border-radius: 50px; font-size: 0.875rem; font-weight: 600;
+  border: 2px solid var(--border); color: var(--text-muted); transition: var(--transition);
+  cursor: pointer; background: var(--white);
+}
+.dark-mode .cat-btn { background: #1A2535; border-color: #2D3748; color: var(--dark); }
+.cat-btn.active, .cat-btn:hover { border-color: var(--primary); background: var(--primary); color: white; }
+
+/* ── Contact Page ── */
+.contact-hero-detail { margin-top: 24px; }
+.faq-section { margin-top: 48px; }
+.faq-item {
+  background: var(--white); border-radius: var(--radius);
+  border: 1px solid var(--border); margin-bottom: 12px; overflow: hidden;
+  transition: var(--transition);
+}
+.dark-mode .faq-item { background: #1A2535; border-color: #2D3748; }
+.faq-question {
+  padding: 18px 20px; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  font-weight: 600; font-size: 0.9rem;
+}
+.faq-question:hover { color: var(--primary); }
+.faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.faq-answer.open { max-height: 200px; padding: 0 20px 18px; }
+.faq-answer p { color: var(--text-muted); font-size: 0.875rem; line-height: 1.7; }
+.faq-chevron { transition: transform 0.3s; font-size: 0.8rem; }
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+/* ── Page Responsive ── */
+@media (max-width: 768px) {
+  .vision-mission-grid { grid-template-columns: 1fr; }
+  .form-grid-3 { grid-template-columns: 1fr; }
+  .admission-steps::before { display: none; }
+}
