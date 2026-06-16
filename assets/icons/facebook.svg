@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Facebook icon">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b5998"/>
+      <stop offset="100%" stop-color="#2a4495"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="18" fill="url(#g3)"/>
+  <path d="M40 18h-4.2c-3.4 0-4 1.6-4 4v4h8l-1 8h-7v20h-8V34h-6v-8h6v-5c0-5.2 2.8-8 8-8H40v7z" fill="#fff"/>
+</svg>

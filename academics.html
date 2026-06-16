@@ -4,12 +4,109 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Academics | Wisdom High School Brahmanakotkur</title>
-  <meta name="description" content="Explore the academic programs at Wisdom High School: Baby Class to 10th Class, IIT/NEET foundation, smart classrooms, and strong board results." />
+  <meta name="description" content="Academics at Wisdom High School — Baby Class to 10th Class. IIT/NEET Foundation from Class 6. Audio-Video teaching, Science Lab, Computer Education. Call 8184873311." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/pages.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏫</text></svg>" />
+  <style>
+    /* ── Academics page extra styles ── */
+    .feature-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(26,60,110,0.08); color: var(--primary);
+      border: 1px solid rgba(26,60,110,0.2);
+      padding: 5px 14px; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 600;
+    }
+    .dark-mode .feature-badge { background: rgba(255,255,255,0.08); color: var(--secondary); border-color: rgba(255,255,255,0.15); }
+
+    .highlight-row {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px; border-radius: var(--radius);
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 4px solid var(--secondary);
+      box-shadow: var(--shadow-sm); transition: var(--transition);
+    }
+    .dark-mode .highlight-row { background: #1A2535; border-color: #2D3748; border-left-color: var(--secondary); }
+    .highlight-row:hover { transform: translateX(5px); border-left-color: var(--primary); }
+    .highlight-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .highlight-text h4 { font-size: 0.95rem; color: var(--primary); margin-bottom: 4px; }
+    .dark-mode .highlight-text h4 { color: var(--secondary); }
+    .highlight-text p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+    .class-band {
+      border-radius: var(--radius-lg); padding: 32px;
+      color: white; position: relative; overflow: hidden;
+    }
+    .class-band::after {
+      content: attr(data-emoji);
+      position: absolute; right: 20px; bottom: -10px;
+      font-size: 5rem; opacity: 0.15;
+    }
+    .class-band h3 { color: white; margin-bottom: 8px; font-size: 1.2rem; }
+    .class-band .band-label {
+      display: inline-block; background: rgba(255,255,255,0.2);
+      padding: 4px 14px; border-radius: 50px; font-size: 0.78rem;
+      font-weight: 600; margin-bottom: 14px;
+    }
+    .class-band ul { display: flex; flex-direction: column; gap: 8px; }
+    .class-band ul li { font-size: 0.85rem; color: rgba(255,255,255,0.9); display: flex; gap: 8px; }
+    .class-band ul li::before { content: "▶"; color: var(--secondary); flex-shrink: 0; font-size: 0.7rem; margin-top: 3px; }
+
+    .subject-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 50px;
+      font-size: 0.82rem; font-weight: 600;
+      background: var(--white); border: 1.5px solid var(--border);
+      box-shadow: var(--shadow-sm); transition: var(--transition);
+    }
+    .dark-mode .subject-pill { background: #1A2535; border-color: #2D3748; color: var(--dark); }
+    .subject-pill:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+
+    .iit-card {
+      background: linear-gradient(135deg, #0D1B2A 0%, #1A3C6E 60%, #2557A7 100%);
+      border-radius: var(--radius-lg); padding: 48px 40px;
+      position: relative; overflow: hidden;
+    }
+    .iit-card::before {
+      content: '🎯';
+      position: absolute; right: 40px; top: 50%; transform: translateY(-50%);
+      font-size: 8rem; opacity: 0.08;
+    }
+    .iit-card h2 { color: var(--secondary); margin-bottom: 12px; }
+    .iit-card p { color: rgba(255,255,255,0.85); font-size: 1rem; line-height: 1.7; margin-bottom: 24px; }
+    .iit-points { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .iit-point {
+      display: flex; align-items: flex-start; gap: 10px;
+      background: rgba(255,255,255,0.07); border-radius: var(--radius);
+      padding: 12px 14px;
+    }
+    .iit-point span { font-size: 0.85rem; color: rgba(255,255,255,0.85); }
+
+    .alumni-card {
+      background: var(--white); border-radius: var(--radius-lg);
+      padding: 24px; text-align: center; box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border); border-top: 4px solid var(--secondary);
+      transition: var(--transition);
+    }
+    .dark-mode .alumni-card { background: #1A2535; border-color: #2D3748; }
+    .alumni-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .alumni-course {
+      font-size: 1.8rem; font-weight: 800;
+      font-family: var(--font-display);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; line-height: 1; margin-bottom: 6px;
+    }
+    .alumni-card h4 { font-size: 0.9rem; margin-bottom: 4px; }
+    .alumni-card p { font-size: 0.8rem; color: var(--text-muted); }
+
+    @media (max-width: 768px) {
+      .iit-points { grid-template-columns: 1fr; }
+      .iit-card { padding: 32px 24px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -21,7 +118,7 @@
         <a href="tel:8184873311">📞 8184873311</a>
         <a href="mailto:info@wisdomhighschool.in">✉️ info@wisdomhighschool.in</a>
         <span style="color:rgba(255,255,255,0.4)">|</span>
-        <a href="#">📍 Brahmanakotkur, Nandikotkur Mandal, Nandyal Dist.</a>
+        <a href="#">📍 Brahmanakotkur, Nandikotkur (M), Nandyal Dist.</a>
       </div>
       <div class="topbar-right">
         <a href="portal/parent.html">👨‍👩‍👧 Parent Portal</a>
@@ -37,11 +134,11 @@
   <div class="container">
     <div class="header-inner">
       <a href="index.html" class="logo-wrap">
-        <div class="logo-icon">
-          <img src="assets/icons/logo.jpg" alt="School Logo">
-        </div>
+         <div class="logo-icon">
+    <img src="assets/icons/logo.jpg" alt="School Logo">
+</div>
         <div class="logo-text">
-          <div class="school-name"><b>WISDOM HIGH SCHOOL</b></div>
+          <div class="school-name">Wisdom High School</div>
           <div class="school-location">Brahmanakotkur, Nandikotkur (M), Nandyal Dist.</div>
           <div class="school-tagline">Recognised by Govt. of AP | Baby Class to 10th Class</div>
         </div>
@@ -56,7 +153,7 @@
       </nav>
       <div class="header-actions">
         <button id="darkToggle">🌙</button>
-        <a href="admissions.html" class="btn btn-accent" style="font-size:0.82rem;padding:10px 18px;">📞 8184873311</a>
+        <a href="admissions.html" class="btn btn-accent" style="font-size:0.82rem;padding:10px 18px;">Apply Now</a>
         <button id="mobileMenuBtn"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -80,163 +177,390 @@
         <span>›</span>
         <span class="current">Academics</span>
       </div>
-      <h1>Academics at Wisdom High School</h1>
-      <p>Strong fundamentals, modern teaching, and IIT/NEET foundation from Class 6 onwards — all under one roof.</p>
+      <h1>Our Academic Programs</h1>
+      <p>Baby Class to 10th Class — A complete, structured, and modern education system that prepares every child for a brilliant future.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;">
+        <span class="feature-badge" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3);">✅ Govt. of AP Recognised</span>
+        <span class="feature-badge" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3);">✅ Audio-Video Teaching</span>
+        <span class="feature-badge" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3);">✅ IIT/NEET Foundation</span>
+        <span class="feature-badge" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3);">✅ Science Lab</span>
+        <span class="feature-badge" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3);">✅ Computer Education</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Academic Overview -->
+<!-- What Makes Our Teaching Special -->
 <section class="section-pad">
   <div class="container">
     <div class="text-center" data-aos="fade-up">
-      <div class="section-tag">Academic Excellence</div>
-      <h2 class="section-title">A Curriculum Built for Success</h2>
-      <p class="section-sub">From Baby Class to 10th Class, our academic programs balance strong fundamentals with confidence-building experiences.</p>
+      <div class="section-tag">మా పాఠశాల ప్రత్యేకతలు</div>
+      <h2 class="section-title">Our School's Special Features</h2>
+      <p class="section-sub">Every feature is designed to give your child the best possible learning experience — from the classroom to the playground.</p>
     </div>
 
-    <div class="feature-grid" data-aos="fade-up" style="margin-top:24px;">
-      <div class="feature-card">
-        <div class="feature-icon">👶</div>
-        <h3>Strong Early Learning</h3>
-        <p>Play-based nursery and kindergarten sessions focus on language, numbers, motor skills, and social confidence.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;" data-aos="fade-up">
+
+      <div class="highlight-row">
+        <div class="highlight-icon">🏫</div>
+        <div class="highlight-text">
+          <h4>Pleasant Learning Environment</h4>
+          <p>ఆహ్లాదకరమైన వాతావరణంలో తరగతుల నిర్వహణ — Classes conducted in a cheerful, comfortable atmosphere where every child feels welcome and happy to learn.</p>
+        </div>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📘</div>
-        <h3>Foundation Years</h3>
-        <p>Class 1 to 5 builds core skills in Telugu, English, Mathematics, EVS, and science with audio-visual learning.</p>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">💻</div>
+        <div class="highlight-text">
+          <h4>Computer Education for All</h4>
+          <p>విద్యార్థిని, విద్యార్థులకు కంప్యూటర్ బోధన — Computer education provided to all boys and girls with dedicated lab sessions from early classes onwards.</p>
+        </div>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📖</div>
-        <h3>Middle School Learning</h3>
-        <p>Class 6 to 8 prepares students for higher learning with a strong focus on logic, science, and value education.</p>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">📽️</div>
+        <div class="highlight-text">
+          <h4>Audio-Video Teaching (Projector + TV)</h4>
+          <p>ప్రతి తరగతికి ప్రొజెక్టర్ మరియు TV ల ద్వారా Audio-Video పాఠ్యాంశాల బోధన — Every classroom has a projector and TV for interactive, engaging audio-visual lessons.</p>
+        </div>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎓</div>
-        <h3>Secondary School Success</h3>
-        <p>Classes 9 and 10 offer targeted board exam preparation, revision practice, and mentoring for top performance.</p>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">🔬</div>
+        <div class="highlight-text">
+          <h4>Science Lab Facility</h4>
+          <p>పిల్లలకు శాస్త్రీయ పద్ధతిలో బోధనకు సైన్స్ లాబ్ సౌకర్యం కలదు — Fully equipped Science Lab for hands-on experiments ensuring scientific thinking from early stages.</p>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">📊</div>
+        <div class="highlight-text">
+          <h4>Supervised Study Hours</h4>
+          <p>ఉపాధ్యాయుల పర్యవేక్షణలో పటిష్టమైన స్టడీ అవర్స్ నిర్వహించుట — Structured study hours conducted under strict teacher supervision for maximum academic output.</p>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">🎓</div>
+        <div class="highlight-text">
+          <h4>Expert Trained Teachers</h4>
+          <p>అత్యంత అనుభవం, విషయ పరిజ్ఞానం, అంకిత భావం గల ట్రైనింగ్ టీచర్చే విద్యాబోధన — Teaching by highly experienced, subject-expert, and dedicated trained teaching staff.</p>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">🧘</div>
+        <div class="highlight-text">
+          <h4>Special Yoga Classes</h4>
+          <p>విద్యార్థులందరికి యోగా క్లాసులో ప్రత్యేక శిక్షణ — Special Yoga training sessions for all students to improve concentration, health, and mental wellbeing.</p>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">🛡️</div>
+        <div class="highlight-text">
+          <h4>Stress-Free Education System</h4>
+          <p>విద్యార్థి పై ఎటువంటి మానసిక ఒత్తిడి లేని అత్యుత్తమ విద్యా విధానం — An excellent education system with absolutely NO mental pressure on students. Learning is made enjoyable.</p>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">💡</div>
+        <div class="highlight-text">
+          <h4>Special Care for Weak Students</h4>
+          <p>చదువులో వెనుకబడిన విద్యార్థులపై ప్రత్యేక శ్రద్ధ — Dedicated attention and special remedial classes for students who need extra academic support and motivation.</p>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">⚽</div>
+        <div class="highlight-text">
+          <h4>Sports-Integrated Learning</h4>
+          <p>క్రమ శిక్షణ మరియు ఆటపాటలతో కూడిన విద్యా బోధన — Education combined with regular sports and games ensuring complete physical and mental development.</p>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">🎨</div>
+        <div class="highlight-text">
+          <h4>Attractive Multi-Media Teaching</h4>
+          <p>వివిధ బోధనోపకరణాలతో ఆకర్షణీయమైన బోధన — Teaching using various attractive audio-visual aids, charts, models, and multimedia tools to make learning fun.</p>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">🚌</div>
+        <div class="highlight-text">
+          <h4>Village Bus Facility</h4>
+          <p>ప్రతి గ్రామానికి బస్సు సౌకర్యం కలదు — Safe and reliable bus service available to every village, ensuring no child misses quality education due to distance.</p>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">🎯</div>
+        <div class="highlight-text">
+          <h4>Personal Attention & Improvement Classes</h4>
+          <p>ప్రతి విద్యార్థి పై వ్యక్తిగత పర్యవేక్షణతో పాటు వెనుకబడిన విద్యార్థులకు ప్రోత్సాహమిస్తూ విద్యార్థులకు ప్రత్యేక ప్రణాళిక ద్వారా బోధన అందించబడుతుంది — Individual monitoring plus special improvement classes for every student.</p>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div class="highlight-icon">📝</div>
+        <div class="highlight-text">
+          <h4>Special Improvement Classes by Teachers</h4>
+          <p>విద్యార్థిని, విద్యార్థులకు పరీక్షలు నిర్వహించి వెనుకబడిన వారి Improvement కొరకు Teachers చే ప్రత్యేక Classes నిర్వహించబడుసు — After assessments, special improvement classes by teachers for weaker students.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Special highlight for Muslim students -->
+    <div style="margin-top:28px;background:linear-gradient(135deg,#1A3C6E,#2557A7);border-radius:var(--radius-lg);padding:28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;" data-aos="fade-up">
+      <div style="font-size:2.5rem;">🕌</div>
+      <div>
+        <h3 style="color:var(--secondary);margin-bottom:6px;">Quran Classes for Muslim Students</h3>
+        <p style="color:rgba(255,255,255,0.85);font-size:0.9rem;">ముస్లీం విద్యార్థిని, విద్యార్థులకు సాయంత్రపు సమయంలో ఖురాన్ నేర్పించబడుతుంది — Special Quran teaching sessions conducted in the evening for Muslim boys and girls.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Curriculum Blocks -->
-<section class="section-pad" style="background:var(--light);">
-  <div class="container">
-    <div class="grid-2" data-aos="fade-up">
-      <div>
-        <div class="section-tag">Our Programs</div>
-        <h2 class="section-title">Programs That Make a Difference</h2>
-        <p class="section-sub">A balanced teaching approach ensures every child receives meaningful learning, care, and support.</p>
-      </div>
-      <div>
-        <div class="program-card">
-          <h3>Smart Classrooms</h3>
-          <p>Interactive smart boards, projectors, and audio-visual teaching tools help students connect with concepts quickly.</p>
-        </div>
-        <div class="program-card">
-          <h3>IIT/NEET Foundation</h3>
-          <p>Special foundation coaching for Science and Mathematics begins from Class 6 to strengthen competitive exam readiness.</p>
-        </div>
-        <div class="program-card">
-          <h3>Language Development</h3>
-          <p>Strong emphasis on Telugu and English literacy, with reading, writing, and speaking skills integrated across every subject.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Classes Available -->
-<section class="section-pad" id="classes">
+<!-- Class-wise Programs -->
+<section class="section-pad" style="background:var(--light);" id="programs">
   <div class="container">
     <div class="text-center" data-aos="fade-up">
-      <div class="section-tag">Classes Available</div>
+      <div class="section-tag">Class-Wise Programs</div>
       <h2 class="section-title">Baby Class to 10th Class</h2>
-      <p class="section-sub">Comprehensive education from the very beginning to board examinations.</p>
+      <p class="section-sub">Structured academic pathways designed for every stage of your child's growth and development.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:18px;" data-aos="fade-up">
 
-      <div style="background:linear-gradient(135deg,#1A3C6E,#2557A7);border-radius:var(--radius-lg);padding:20px;text-align:center;color:white;">
-        <div style="font-size:2rem;margin-bottom:10px;">👶</div>
-        <h3 style="color:white;margin-bottom:6px;">Baby Class</h3>
-        <p style="color:rgba(255,255,255,0.9);font-size:0.95rem;">Play-based learning, rhymes, colours, and basics. The perfect start!</p>
-        <div style="margin-top:12px;background:rgba(255,255,255,0.12);padding:8px;border-radius:8px;font-size:0.85rem;">Age: 2.5 to 4 Years</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;" data-aos="fade-up">
+
+      <!-- Baby Class -->
+      <div class="class-band" data-emoji="👶" style="background:linear-gradient(135deg,#E8A020,#d4911c);">
+        <div class="band-label">Age: 2.5 – 4 Years</div>
+        <h3>Baby Class</h3>
+        <ul>
+          <li>Rhymes, songs, and storytelling</li>
+          <li>Colour recognition and drawing</li>
+          <li>Basic English alphabets & Telugu varnamala</li>
+          <li>Play-based social interaction</li>
+          <li>Motor skills and creative activities</li>
+        </ul>
       </div>
 
-      <div style="background:linear-gradient(135deg,#E8A020,#d4911c);border-radius:var(--radius-lg);padding:20px;text-align:center;color:white;">
-        <div style="font-size:2rem;margin-bottom:10px;">🌱</div>
-        <h3 style="color:white;margin-bottom:6px;">LKG / UKG</h3>
-        <p style="color:rgba(255,255,255,0.9);font-size:0.95rem;">Alphabets, numbers, drawing, and social skills development.</p>
-        <div style="margin-top:12px;background:rgba(255,255,255,0.12);padding:8px;border-radius:8px;font-size:0.85rem;">Age: 4 to 6 Years</div>
+      <!-- LKG / UKG -->
+      <div class="class-band" data-emoji="🌱" style="background:linear-gradient(135deg,#27ae60,#2ecc71);">
+        <div class="band-label">Age: 4 – 6 Years</div>
+        <h3>LKG / UKG</h3>
+        <ul>
+          <li>English alphabets, words, and sentences</li>
+          <li>Numbers 1–100, basic addition & subtraction</li>
+          <li>Telugu & Hindi introduction</li>
+          <li>Drawing, colouring, and craft</li>
+          <li>Yoga and physical activities</li>
+        </ul>
       </div>
 
-      <div style="background:linear-gradient(135deg,#27ae60,#2ecc71);border-radius:var(--radius-lg);padding:20px;text-align:center;color:white;">
-        <div style="font-size:2rem;margin-bottom:10px;">📚</div>
-        <h3 style="color:white;margin-bottom:6px;">Class 1 – 5</h3>
-        <p style="color:rgba(255,255,255,0.9);font-size:0.95rem;">Foundation in languages, maths, EVS with Audio-Video teaching.</p>
-        <div style="margin-top:12px;background:rgba(255,255,255,0.12);padding:8px;border-radius:8px;font-size:0.85rem;">Primary School</div>
+      <!-- Class 1-5 -->
+      <div class="class-band" data-emoji="📚" style="background:linear-gradient(135deg,#1A3C6E,#2557A7);">
+        <div class="band-label">Primary School</div>
+        <h3>Class 1 – 5</h3>
+        <ul>
+          <li>Telugu, English, Hindi languages</li>
+          <li>Mathematics with mental arithmetic</li>
+          <li>Environmental Science (EVS)</li>
+          <li>Computer Education (Basics)</li>
+          <li>Audio-Video teaching every day</li>
+          <li>Yoga and sports activities</li>
+        </ul>
       </div>
 
-      <div style="background:linear-gradient(135deg,#8e44ad,#9b59b6);border-radius:var(--radius-lg);padding:20px;text-align:center;color:white;">
-        <div style="font-size:2rem;margin-bottom:10px;">📖</div>
-        <h3 style="color:white;margin-bottom:6px;">Class 6 – 8</h3>
-        <p style="color:rgba(255,255,255,0.9);font-size:0.95rem;">Science, Maths, Social + IIT/NEET Foundation begins here!</p>
-        <div style="margin-top:12px;background:rgba(255,255,255,0.12);padding:8px;border-radius:8px;font-size:0.85rem;">Upper Primary</div>
+      <!-- Class 6-8 -->
+      <div class="class-band" data-emoji="🔬" style="background:linear-gradient(135deg,#8e44ad,#9b59b6);">
+        <div class="band-label">Upper Primary</div>
+        <h3>Class 6 – 8</h3>
+        <ul>
+          <li>Science, Maths, Social Studies</li>
+          <li>Telugu, English, Hindi / Sanskrit</li>
+          <li>Computer Science Lab sessions</li>
+          <li>Science Lab experiments</li>
+          <li>🎯 IIT/NEET Foundation Begins</li>
+          <li>Supervised study hours daily</li>
+        </ul>
       </div>
 
-      <div style="background:linear-gradient(135deg,#C0392B,#e74c3c);border-radius:var(--radius-lg);padding:20px;text-align:center;color:white;">
-        <div style="font-size:2rem;margin-bottom:10px;">🎓</div>
-        <h3 style="color:white;margin-bottom:6px;">Class 9 – 10</h3>
-        <p style="color:rgba(255,255,255,0.9);font-size:0.95rem;">Board exam prep, IIT/NEET coaching, career guidance &amp; more.</p>
-        <div style="margin-top:12px;background:rgba(255,255,255,0.12);padding:8px;border-radius:8px;font-size:0.85rem;">AP Board Exams</div>
+      <!-- Class 9-10 -->
+      <div class="class-band" data-emoji="🎓" style="background:linear-gradient(135deg,#C0392B,#e74c3c);">
+        <div class="band-label">AP Board Exams</div>
+        <h3>Class 9 – 10</h3>
+        <ul>
+          <li>AP Board full syllabus coverage</li>
+          <li>Physics, Chemistry, Biology, Maths</li>
+          <li>Telugu, English, Social Studies</li>
+          <li>IIT/NEET advanced coaching</li>
+          <li>Mock tests and board exam preparation</li>
+          <li>Career guidance and counseling</li>
+          <li>Improvement classes for weak students</li>
+        </ul>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- Results & Support -->
+<!-- IIT / NEET Foundation -->
+<section class="section-pad" id="iit-neet">
+  <div class="container">
+    <div class="iit-card" data-aos="fade-up">
+      <div class="section-tag" style="background:rgba(232,160,32,0.2);color:var(--secondary);border-color:rgba(232,160,32,0.3);">Special Program</div>
+      <h2>IIT / NEET Foundation Program</h2>
+      <p>From Class 6 onwards, Wisdom High School runs a dedicated IIT/NEET Foundation program. Our students have already secured <strong style="color:var(--secondary);">FREE SEATS</strong> in Medicine, IIT, JEE Mains, and Engineering — and yours can too!</p>
+      <div class="iit-points">
+        <div class="iit-point"><span style="font-size:1.2rem;">🎯</span><span>Foundation from Class 6 — early start, stronger base</span></div>
+        <div class="iit-point"><span style="font-size:1.2rem;">🧪</span><span>Science Lab experiments aligned with IIT/NEET syllabus</span></div>
+        <div class="iit-point"><span style="font-size:1.2rem;">📐</span><span>Advanced Mathematics coaching by expert teachers</span></div>
+        <div class="iit-point"><span style="font-size:1.2rem;">🏆</span><span>Alumni secured FREE seats in MEDICINE & ENGINEERING</span></div>
+        <div class="iit-point"><span style="font-size:1.2rem;">📊</span><span>Regular mock tests and performance tracking</span></div>
+        <div class="iit-point"><span style="font-size:1.2rem;">👨‍🏫</span><span>Dedicated subject experts for Physics, Chemistry, Biology, Maths</span></div>
+        <div class="iit-point"><span style="font-size:1.2rem;">📝</span><span>Special improvement classes after every assessment</span></div>
+        <div class="iit-point"><span style="font-size:1.2rem;">💡</span><span>Personalised study plan for each student</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Subjects Taught -->
+<section class="section-pad" style="background:var(--light);" id="subjects">
+  <div class="container">
+    <div class="text-center" data-aos="fade-up">
+      <div class="section-tag">Curriculum</div>
+      <h2 class="section-title">Subjects We Teach</h2>
+      <p class="section-sub">A well-rounded curriculum balancing languages, sciences, social studies, arts, and technology.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-top:16px;" data-aos="fade-up">
+
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--secondary);display:inline-block;">📚 Languages</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="subject-pill">🇮🇳 Telugu</span>
+          <span class="subject-pill">🔤 English</span>
+          <span class="subject-pill">🕉️ Hindi</span>
+          <span class="subject-pill">🪔 Sanskrit</span>
+          <span class="subject-pill">📖 Urdu</span>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--secondary);display:inline-block;">🔬 Sciences</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="subject-pill">⚛️ Physics</span>
+          <span class="subject-pill">🧪 Chemistry</span>
+          <span class="subject-pill">🌿 Biology</span>
+          <span class="subject-pill">🌍 EVS</span>
+          <span class="subject-pill">💻 Computer Science</span>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--secondary);display:inline-block;">➕ Mathematics</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="subject-pill">🔢 Arithmetic</span>
+          <span class="subject-pill">📐 Geometry</span>
+          <span class="subject-pill">📈 Algebra</span>
+          <span class="subject-pill">📊 Statistics</span>
+          <span class="subject-pill">🧮 Mensuration</span>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--secondary);display:inline-block;">🗺️ Social Studies</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="subject-pill">🏛️ History</span>
+          <span class="subject-pill">🌏 Geography</span>
+          <span class="subject-pill">⚖️ Civics</span>
+          <span class="subject-pill">💰 Economics</span>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--secondary);display:inline-block;">🎨 Arts & Co-Curricular</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="subject-pill">🎵 Music</span>
+          <span class="subject-pill">💃 Dance</span>
+          <span class="subject-pill">🎨 Drawing</span>
+          <span class="subject-pill">🧘 Yoga</span>
+          <span class="subject-pill">🗣️ Elocution</span>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--secondary);display:inline-block;">⚽ Sports & Physical Ed.</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="subject-pill">🏏 Cricket</span>
+          <span class="subject-pill">⚽ Football</span>
+          <span class="subject-pill">🏐 Volleyball</span>
+          <span class="subject-pill">🏸 Badminton</span>
+          <span class="subject-pill">🏃 Athletics</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Alumni Success -->
 <section class="section-pad">
   <div class="container">
     <div class="text-center" data-aos="fade-up">
-      <div class="section-tag">Results</div>
-      <h2 class="section-title">Proven Academic Support</h2>
-      <p class="section-sub">Our students thrive under structured study hours, revision labs, and individual counselling.</p>
+      <div class="section-tag">Our Pride</div>
+      <h2 class="section-title">Alumni Achievements</h2>
+      <p class="section-sub">మా పాఠశాలలో చదువుకున్న పూర్వ విద్యార్థులు MEDICINE, IIT, JEE MAINS మరియు ENGINEERING లో ఫ్రీ సీట్స్ సాధించారు.</p>
     </div>
-
-    <div class="stats-grid" data-aos="fade-up">
-      <div class="stat-card">
-        <div class="stat-number">98%</div>
-        <p>Average Board Pass Rate</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;" data-aos="fade-up">
+      <div class="alumni-card">
+        <div class="alumni-course">MBBS</div>
+        <h4>Medical (NEET)</h4>
+        <p>Students secured FREE seats in Government Medical Colleges through NEET</p>
       </div>
-      <div class="stat-card">
-        <div class="stat-number">100%</div>
-        <p>First-Attempt Passing Rate for Class 10</p>
+      <div class="alumni-card">
+        <div class="alumni-course">IIT</div>
+        <h4>IIT – JEE Advanced</h4>
+        <p>Our alumni qualified JEE Advanced and secured admissions to premier IITs</p>
       </div>
-      <div class="stat-card">
-        <div class="stat-number">24</div>
-        <p>Strong Subject Teachers</p>
+      <div class="alumni-card">
+        <div class="alumni-course">JEE</div>
+        <h4>JEE Mains</h4>
+        <p>Multiple students scored excellent ranks in JEE Mains for NITs and other institutes</p>
       </div>
-      <div class="stat-card">
-        <div class="stat-number">5</div>
-        <p>Daily Remedial Support Sessions</p>
+      <div class="alumni-card">
+        <div class="alumni-course">B.Tech</div>
+        <h4>Engineering</h4>
+        <p>Students secured FREE seats in Government Engineering Colleges across AP & Telangana</p>
+      </div>
+      <div class="alumni-card">
+        <div class="alumni-course">100%</div>
+        <h4>Board Results</h4>
+        <p>Consistently achieving high pass percentages in AP SSC Board Examinations</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Academic Highlights -->
-<section class="section-pad" style="background:var(--secondary);color:white;">
+<!-- CTA -->
+<section class="section-pad admission-cta">
   <div class="container">
-    <div class="highlight-box" data-aos="fade-up">
-      <h2>Why Parents Trust Our Academics</h2>
-      <ul>
-        <li>Experienced teachers with subject expertise across all grades</li>
-        <li>Regular assessment reports, parent meetings, and progress tracking</li>
-        <li>Balanced schedule with academics, sports and extra-curricular support</li>
-        <li>Safe campus environment with caring mentors for every child</li>
-      </ul>
+    <div class="cta-inner" data-aos="fade-up">
+      <div class="section-tag" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3);">Admissions Open</div>
+      <h2>Give Your Child the Wisdom Advantage!</h2>
+      <p style="color:rgba(255,255,255,0.85);">Baby Class to 10th Class | IIT/NEET Foundation | Audio-Video Teaching | Science Lab | Yoga | Village Bus<br>Recognised by Govt. of AP</p>
+      <div class="cta-btns" style="margin-top:28px;">
+        <a href="admissions.html" class="btn btn-secondary" style="font-size:1rem;padding:14px 32px;">📝 Apply for Admission</a>
+        <a href="tel:8184873311" class="btn btn-outline" style="font-size:1rem;padding:14px 32px;">📞 Call: 8184873311</a>
+        <a href="https://wa.me/918184873311" class="btn" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);padding:14px 28px;" target="_blank">💬 WhatsApp</a>
+      </div>
     </div>
   </div>
 </section>
@@ -247,16 +571,14 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="logo-wrap footer-logo-wrap">
-            <div class="logo-icon footer-logo">
-              <img src="assets/icons/logo.jpg" alt="Wisdom High School Logo">
-            </div>
+          <a href="index.html" class="logo-wrap" style="margin-bottom:16px;display:inline-flex;">
+            <div class="logo-icon" style="width:48px;height:48px;font-size:1.3rem;">🎓</div>
             <div class="logo-text">
               <div class="school-name">Wisdom High School</div>
               <div class="school-location">Brahmanakotkur, Nandyal Dist.</div>
             </div>
           </a>
-          <p>Recognised by Govt. of AP | Baby Class to 10th Class | Admissions Open 2026–27</p>
+          <p>Recognised by Govt. of AP | Baby Class to 10th Class | IIT/NEET Foundation from Class 6</p>
           <div class="footer-social">
             <a href="#" class="social-btn">📘</a>
             <a href="#" class="social-btn">▶️</a>
@@ -278,10 +600,9 @@
         <div class="footer-col">
           <h4>Academics</h4>
           <div class="footer-links">
-            <a href="academics.html#">Curriculum</a>
-            <a href="academics.html#">IIT/NEET Foundation</a>
-            <a href="academics.html#">Smart Classes</a>
-            <a href="academics.html#">Board Results</a>
+            <a href="academics.html#programs">Class Programs</a>
+            <a href="academics.html#iit-neet">IIT/NEET Foundation</a>
+            <a href="academics.html#subjects">Subjects</a>
           </div>
         </div>
         <div class="footer-col">
@@ -290,7 +611,7 @@
             <a href="tel:8184873311">📞 8184873311</a>
             <a href="#">📍 Brahmanakotkur (V)</a>
             <a href="#">🏘️ Nandikotkur (M)</a>
-            <a href="#">📮 Nandyal District, AP</a>
+            <a href="#">📮 Nandyal Dist., AP</a>
           </div>
         </div>
       </div>
@@ -298,7 +619,7 @@
   </div>
   <div class="container">
     <div class="footer-bottom">
-      <p>© 2026 Wisdom High School, Brahmanakotkur. Recognised by Govt. of AP. All Rights Reserved.</p>
+      <p>© 2026 Wisdom High School, Brahmanakotkur. Recognised by Govt. of AP. All Rights Reserved. Developed by Shaik Lalu Basha | Contact: 7993417685.</p>
     </div>
   </div>
 </footer>

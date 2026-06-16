@@ -4,12 +4,136 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gallery | Wisdom High School Brahmanakotkur</title>
-  <meta name="description" content="View the gallery of Wisdom High School: campus life, classrooms, events, sports and cultural activities in Brahmanakotkur." />
+  <meta name="description" content="Photo and video gallery of Wisdom High School — sports day, cultural events, classroom activities, annual day, and more. Call 8184873311." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/pages.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏫</text></svg>" />
+  <style>
+    /* ── Gallery Page Styles ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .g-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      background: var(--primary);
+      aspect-ratio: 4/3;
+      transition: var(--transition);
+    }
+    .g-item.tall { aspect-ratio: 3/4; }
+    .g-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .g-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+      transition: transform 0.4s ease;
+    }
+    .g-item:hover .g-placeholder { transform: scale(1.05); }
+    .g-emoji { font-size: 3.5rem; }
+    .g-label { color: rgba(255,255,255,0.7); font-size: 0.8rem; letter-spacing: 0.08em; }
+    .g-overlay {
+      position: absolute; inset: 0;
+      background: rgba(26,60,110,0.75);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      opacity: 0; transition: var(--transition);
+    }
+    .g-item:hover .g-overlay { opacity: 1; }
+    .g-overlay span { color: white; font-size: 1.8rem; }
+    .g-overlay p { color: white; font-size: 0.85rem; font-weight: 600; padding: 0 16px; text-align: center; }
+
+    .g-item[data-hidden="true"] { display: none; }
+
+    /* Category filter pills */
+    .cat-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+    .cat-pill {
+      padding: 8px 22px; border-radius: 50px;
+      font-size: 0.875rem; font-weight: 600;
+      border: 2px solid var(--border); color: var(--text-muted);
+      background: var(--white); transition: var(--transition); cursor: pointer;
+    }
+    .dark-mode .cat-pill { background: #1A2535; border-color: #2D3748; color: var(--dark); }
+    .cat-pill.active, .cat-pill:hover {
+      border-color: var(--primary); background: var(--primary); color: white;
+    }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.92);
+      display: none; align-items: center; justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    #lightbox.open { display: flex; }
+    .lb-content {
+      max-width: 700px; width: 100%; text-align: center;
+      animation: lb-in 0.3s ease;
+    }
+    @keyframes lb-in { from{opacity:0;transform:scale(0.9)} to{opacity:1;transform:scale(1)} }
+    .lb-box {
+      width: 100%; aspect-ratio: 4/3;
+      border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem; margin-bottom: 16px;
+    }
+    .lb-title { color: white; font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+    .lb-cat { color: var(--secondary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    #lbClose {
+      position: absolute; top: 24px; right: 28px;
+      color: white; font-size: 2rem; cursor: pointer;
+      background: rgba(255,255,255,0.1); border: none;
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    #lbClose:hover { background: var(--accent); }
+    #lbPrev, #lbNext {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.2);
+      color: white; font-size: 1.4rem; width: 50px; height: 50px;
+      border-radius: 50%; cursor: pointer; transition: var(--transition);
+    }
+    #lbPrev { left: 20px; }
+    #lbNext { right: 20px; }
+    #lbPrev:hover, #lbNext:hover { background: var(--secondary); color: var(--dark); border-color: var(--secondary); }
+
+    /* Video section */
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .video-card {
+      border-radius: var(--radius-lg); overflow: hidden;
+      box-shadow: var(--shadow-md); position: relative;
+      cursor: pointer; transition: var(--transition);
+    }
+    .video-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .video-thumb {
+      aspect-ratio: 16/9;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .video-thumb .play-btn {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: rgba(255,255,255,0.9); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.4rem; color: var(--primary);
+      transition: var(--transition); box-shadow: var(--shadow-md);
+    }
+    .video-card:hover .play-btn { transform: scale(1.15); background: var(--secondary); }
+    .video-info { background: var(--white); padding: 16px 20px; }
+    .dark-mode .video-info { background: #1A2535; }
+    .video-info h4 { font-size: 0.9rem; margin-bottom: 4px; }
+    .video-info span { font-size: 0.78rem; color: var(--text-muted); }
+
+    @media (max-width: 600px) {
+      .g-item.wide { grid-column: span 1; aspect-ratio: 4/3; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -20,8 +144,6 @@
       <div class="topbar-left">
         <a href="tel:8184873311">📞 8184873311</a>
         <a href="mailto:info@wisdomhighschool.in">✉️ info@wisdomhighschool.in</a>
-        <span style="color:rgba(255,255,255,0.4)">|</span>
-        <a href="#">📍 Brahmanakotkur, Nandikotkur Mandal, Nandyal Dist.</a>
       </div>
       <div class="topbar-right">
         <a href="portal/parent.html">👨‍👩‍👧 Parent Portal</a>
@@ -37,11 +159,11 @@
   <div class="container">
     <div class="header-inner">
       <a href="index.html" class="logo-wrap">
-        <div class="logo-icon">
-          <img src="assets/icons/logo.jpg" alt="School Logo">
-        </div>
+         <div class="logo-icon">
+    <img src="assets/icons/logo.jpg" alt="School Logo">
+</div>
         <div class="logo-text">
-          <div class="school-name"><b>WISDOM HIGH SCHOOL</b></div>
+          <div class="school-name">Wisdom High School</div>
           <div class="school-location">Brahmanakotkur, Nandikotkur (M), Nandyal Dist.</div>
           <div class="school-tagline">Recognised by Govt. of AP | Baby Class to 10th Class</div>
         </div>
@@ -56,7 +178,7 @@
       </nav>
       <div class="header-actions">
         <button id="darkToggle">🌙</button>
-        <a href="admissions.html" class="btn btn-accent" style="font-size:0.82rem;padding:10px 18px;">📞 8184873311</a>
+        <a href="admissions.html" class="btn btn-accent" style="font-size:0.82rem;padding:10px 18px;">Apply Now</a>
         <button id="mobileMenuBtn"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -80,69 +202,415 @@
         <span>›</span>
         <span class="current">Gallery</span>
       </div>
-      <h1>Gallery</h1>
-      <p>Explore campus life at Wisdom High School through classrooms, events, sports, and student achievements.</p>
+      <h1>School Gallery</h1>
+      <p>A vibrant window into life at Wisdom High School — sports, cultural events, annual days, classrooms, and unforgettable memories.</p>
     </div>
   </div>
 </section>
 
-<!-- Photo Sections -->
+<!-- Stats Strip -->
+<div style="background:var(--primary);padding:20px 0;">
+  <div class="container">
+    <div style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;align-items:center;">
+      <div style="text-align:center;color:white;">
+        <div style="font-size:1.6rem;font-weight:800;color:var(--secondary);font-family:var(--font-display);">50+</div>
+        <div style="font-size:0.78rem;opacity:0.8;text-transform:uppercase;letter-spacing:0.08em;">Events Captured</div>
+      </div>
+      <div style="width:1px;height:36px;background:rgba(255,255,255,0.15);"></div>
+      <div style="text-align:center;color:white;">
+        <div style="font-size:1.6rem;font-weight:800;color:var(--secondary);font-family:var(--font-display);">200+</div>
+        <div style="font-size:0.78rem;opacity:0.8;text-transform:uppercase;letter-spacing:0.08em;">Photos</div>
+      </div>
+      <div style="width:1px;height:36px;background:rgba(255,255,255,0.15);"></div>
+      <div style="text-align:center;color:white;">
+        <div style="font-size:1.6rem;font-weight:800;color:var(--secondary);font-family:var(--font-display);">25+</div>
+        <div style="font-size:0.78rem;opacity:0.8;text-transform:uppercase;letter-spacing:0.08em;">Years of Memories</div>
+      </div>
+      <div style="width:1px;height:36px;background:rgba(255,255,255,0.15);"></div>
+      <div style="text-align:center;color:white;">
+        <div style="font-size:1.6rem;font-weight:800;color:var(--secondary);font-family:var(--font-display);">10+</div>
+        <div style="font-size:0.78rem;opacity:0.8;text-transform:uppercase;letter-spacing:0.08em;">Video Albums</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Photo Gallery -->
 <section class="section-pad">
   <div class="container">
     <div class="text-center" data-aos="fade-up">
-      <div class="section-tag">Campus Moments</div>
-      <h2 class="section-title">See Wisdom in Action</h2>
-      <p class="section-sub">A visual tour of our school, students, teachers, and events that define life at Wisdom High School.</p>
+      <div class="section-tag">Photo Gallery</div>
+      <h2 class="section-title">Moments That Matter</h2>
+      <p class="section-sub">Glimpses of our students' journey — learning, performing, competing, and growing together.</p>
     </div>
 
-    <div class="gallery-grid" data-aos="fade-up">
-      <div class="gallery-card" style="background-image:url('assets/images/gallery-campus-1.jpg');">
-        <div class="gallery-label">Campus Life</div>
-      </div>
-      <div class="gallery-card" style="background-image:url('assets/images/gallery-classroom-2.jpg');">
-        <div class="gallery-label">Classroom Learning</div>
-      </div>
-      <div class="gallery-card" style="background-image:url('assets/images/gallery-sports-3.jpg');">
-        <div class="gallery-label">Sports & Games</div>
-      </div>
-      <div class="gallery-card" style="background-image:url('assets/images/gallery-celebration-4.jpg');">
-        <div class="gallery-label">Cultural Events</div>
-      </div>
-      <div class="gallery-card" style="background-image:url('assets/images/gallery-science-5.jpg');">
-        <div class="gallery-label">Lab Activities</div>
-      </div>
-      <div class="gallery-card" style="background-image:url('assets/images/gallery-bus-6.jpg');">
-        <div class="gallery-label">Transport Facility</div>
-      </div>
+    <!-- Filter Pills -->
+    <div class="cat-pills" data-aos="fade-up">
+      <div class="cat-pill active" data-filter="all">🌟 All Photos</div>
+      <div class="cat-pill" data-filter="cultural">🎭 Cultural Events</div>
+      <div class="cat-pill" data-filter="sports">⚽ Sports</div>
+      <div class="cat-pill" data-filter="classroom">📚 Classroom</div>
+      <div class="cat-pill" data-filter="annualday">🎉 Annual Day</div>
+      <div class="cat-pill" data-filter="campus">🏫 Campus</div>
+      <div class="cat-pill" data-filter="labs">🔬 Labs</div>
+      <div class="cat-pill" data-filter="achievements">🏆 Achievements</div>
     </div>
 
-    <div class="gallery-highlights" data-aos="fade-up">
-      <div class="gallery-highlight">
-        <h3>Academic Events</h3>
-        <p>Workshops, science fairs, and learning festivals that make every student curious and confident.</p>
+    <!-- Gallery Grid -->
+    <div class="gallery-grid" id="galleryGrid" data-aos="fade-up">
+
+      <!-- Cultural Events -->
+      <div class="g-item wide" data-cat="cultural" data-title="Annual Cultural Program 2025" data-lbemoji="🎭" data-lbbg="linear-gradient(135deg,#8e44ad,#9b59b6)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#8e44ad,#9b59b6);">
+          <div class="g-emoji">🎭</div>
+          <div class="g-label">Annual Cultural Program 2025</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Annual Cultural Program 2025</p></div>
       </div>
-      <div class="gallery-highlight">
-        <h3>Sports & Fitness</h3>
-        <p>Cricket, football, athletics, and yoga sessions designed to strengthen body, mind, and spirit.</p>
+
+      <div class="g-item" data-cat="cultural" data-title="Dance Performance — Classical" data-lbemoji="💃" data-lbbg="linear-gradient(135deg,#c0392b,#e74c3c)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#c0392b,#e74c3c);">
+          <div class="g-emoji">💃</div>
+          <div class="g-label">Dance Performance</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Classical Dance Performance</p></div>
       </div>
-      <div class="gallery-highlight">
-        <h3>Culture & Celebration</h3>
-        <p>Annual day, teacher's day, and festival programs where everyone participates with joy.</p>
+
+      <div class="g-item" data-cat="cultural" data-title="Drama & Skit — Republic Day" data-lbemoji="🎪" data-lbbg="linear-gradient(135deg,#16a085,#1abc9c)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#16a085,#1abc9c);">
+          <div class="g-emoji">🎪</div>
+          <div class="g-label">Drama & Skit</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Republic Day Drama & Skit</p></div>
+      </div>
+
+      <div class="g-item tall" data-cat="cultural" data-title="Music Program — Carnatic" data-lbemoji="🎵" data-lbbg="linear-gradient(135deg,#e67e22,#f39c12)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#e67e22,#f39c12);">
+          <div class="g-emoji">🎵</div>
+          <div class="g-label">Music Program</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Carnatic Music Program</p></div>
+      </div>
+
+      <!-- Sports -->
+      <div class="g-item" data-cat="sports" data-title="Sports Day 2025 — March Past" data-lbemoji="🏃" data-lbbg="linear-gradient(135deg,#27ae60,#2ecc71)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#27ae60,#2ecc71);">
+          <div class="g-emoji">🏃</div>
+          <div class="g-label">Sports Day March Past</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Sports Day 2025 — March Past</p></div>
+      </div>
+
+      <div class="g-item wide" data-cat="sports" data-title="Cricket Tournament — District Champions" data-lbemoji="🏏" data-lbbg="linear-gradient(135deg,#1A3C6E,#2557A7)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#1A3C6E,#2557A7);">
+          <div class="g-emoji">🏏</div>
+          <div class="g-label">Cricket Tournament — District Champions</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Cricket Tournament — District Champions</p></div>
+      </div>
+
+      <div class="g-item" data-cat="sports" data-title="Football Match — Zonal Level" data-lbemoji="⚽" data-lbbg="linear-gradient(135deg,#2c3e50,#3d5a7a)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#2c3e50,#3d5a7a);">
+          <div class="g-emoji">⚽</div>
+          <div class="g-label">Football Match</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Football Match — Zonal Level</p></div>
+      </div>
+
+      <div class="g-item" data-cat="sports" data-title="Kabaddi Competition" data-lbemoji="🤼" data-lbbg="linear-gradient(135deg,#8e44ad,#6c3483)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#8e44ad,#6c3483);">
+          <div class="g-emoji">🤼</div>
+          <div class="g-label">Kabaddi Competition</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Kabaddi Competition</p></div>
+      </div>
+
+      <div class="g-item" data-cat="sports" data-title="Prize Distribution — Sports Day" data-lbemoji="🥇" data-lbbg="linear-gradient(135deg,#E8A020,#d4911c)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#E8A020,#d4911c);">
+          <div class="g-emoji">🥇</div>
+          <div class="g-label">Prize Distribution</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Prize Distribution — Sports Day</p></div>
+      </div>
+
+      <!-- Classroom -->
+      <div class="g-item" data-cat="classroom" data-title="Audio-Video Classroom Teaching" data-lbemoji="📽️" data-lbbg="linear-gradient(135deg,#1A3C6E,#2557A7)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#1A3C6E,#2557A7);">
+          <div class="g-emoji">📽️</div>
+          <div class="g-label">Audio-Video Teaching</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Audio-Video Classroom Teaching</p></div>
+      </div>
+
+      <div class="g-item" data-cat="classroom" data-title="Yoga Session for Students" data-lbemoji="🧘" data-lbbg="linear-gradient(135deg,#16a085,#1abc9c)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#16a085,#1abc9c);">
+          <div class="g-emoji">🧘</div>
+          <div class="g-label">Yoga Session</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Special Yoga Session for Students</p></div>
+      </div>
+
+      <div class="g-item tall" data-cat="classroom" data-title="Study Hour — Supervised Learning" data-lbemoji="📖" data-lbbg="linear-gradient(135deg,#2c3e50,#3d5a7a)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#2c3e50,#3d5a7a);">
+          <div class="g-emoji">📖</div>
+          <div class="g-label">Supervised Study Hour</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Supervised Study Hours</p></div>
+      </div>
+
+      <!-- Annual Day -->
+      <div class="g-item wide" data-cat="annualday" data-title="Annual Day 2025 — Grand Celebration" data-lbemoji="🎉" data-lbbg="linear-gradient(135deg,#c0392b,#8e44ad)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#c0392b,#8e44ad);">
+          <div class="g-emoji">🎉</div>
+          <div class="g-label">Annual Day 2025 — Grand Celebration</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Annual Day 2025 — Grand Celebration</p></div>
+      </div>
+
+      <div class="g-item" data-cat="annualday" data-title="Fancy Dress Competition" data-lbemoji="🎭" data-lbbg="linear-gradient(135deg,#e67e22,#d35400)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#e67e22,#d35400);">
+          <div class="g-emoji">🎭</div>
+          <div class="g-label">Fancy Dress Competition</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Annual Day — Fancy Dress Competition</p></div>
+      </div>
+
+      <div class="g-item" data-cat="annualday" data-title="Guest of Honour Speech" data-lbemoji="🎤" data-lbbg="linear-gradient(135deg,#1A3C6E,#c0392b)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#1A3C6E,#c0392b);">
+          <div class="g-emoji">🎤</div>
+          <div class="g-label">Guest of Honour</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Annual Day — Guest of Honour</p></div>
+      </div>
+
+      <!-- Campus -->
+      <div class="g-item" data-cat="campus" data-title="School Building — Front View" data-lbemoji="🏫" data-lbbg="linear-gradient(135deg,#1A3C6E,#2557A7)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#1A3C6E,#2557A7);">
+          <div class="g-emoji">🏫</div>
+          <div class="g-label">School Building</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>School Building — Front View</p></div>
+      </div>
+
+      <div class="g-item" data-cat="campus" data-title="School Bus — Village Transport" data-lbemoji="🚌" data-lbbg="linear-gradient(135deg,#E8A020,#f39c12)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#E8A020,#f39c12);">
+          <div class="g-emoji">🚌</div>
+          <div class="g-label">School Bus</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>School Bus — Village Transport</p></div>
+      </div>
+
+      <div class="g-item" data-cat="campus" data-title="School Grounds & Playground" data-lbemoji="🏟️" data-lbbg="linear-gradient(135deg,#27ae60,#1abc9c)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#27ae60,#1abc9c);">
+          <div class="g-emoji">🏟️</div>
+          <div class="g-label">Playground</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>School Grounds & Playground</p></div>
+      </div>
+
+      <!-- Labs -->
+      <div class="g-item" data-cat="labs" data-title="Science Lab — Experiments" data-lbemoji="🔬" data-lbbg="linear-gradient(135deg,#1A3C6E,#16a085)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#1A3C6E,#16a085);">
+          <div class="g-emoji">🔬</div>
+          <div class="g-label">Science Lab</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Science Lab — Experiments</p></div>
+      </div>
+
+      <div class="g-item" data-cat="labs" data-title="Computer Lab Session" data-lbemoji="💻" data-lbbg="linear-gradient(135deg,#2c3e50,#2557A7)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#2c3e50,#2557A7);">
+          <div class="g-emoji">💻</div>
+          <div class="g-label">Computer Lab</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Computer Lab — Students Learning</p></div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="g-item wide" data-cat="achievements" data-title="Board Toppers — Felicitation 2025" data-lbemoji="🏆" data-lbbg="linear-gradient(135deg,#E8A020,#c0392b)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#E8A020,#c0392b);">
+          <div class="g-emoji">🏆</div>
+          <div class="g-label">Board Toppers Felicitation 2025</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Board Toppers — Felicitation Ceremony 2025</p></div>
+      </div>
+
+      <div class="g-item" data-cat="achievements" data-title="Olympiad Winners — Certificate Distribution" data-lbemoji="🥈" data-lbbg="linear-gradient(135deg,#7f8c8d,#95a5a6)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#7f8c8d,#95a5a6);">
+          <div class="g-emoji">🥈</div>
+          <div class="g-label">Olympiad Winners</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Olympiad Winners — Certificate Distribution</p></div>
+      </div>
+
+      <div class="g-item" data-cat="achievements" data-title="Independence Day Celebration" data-lbemoji="🇮🇳" data-lbbg="linear-gradient(135deg,#e67e22,#27ae60)">
+        <div class="g-placeholder" style="background:linear-gradient(135deg,#e67e22,#27ae60);">
+          <div class="g-emoji">🇮🇳</div>
+          <div class="g-label">Independence Day</div>
+        </div>
+        <div class="g-overlay"><span>🔍</span><p>Independence Day Celebration</p></div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:40px;" data-aos="fade-up">
+      <p style="color:var(--text-muted);font-size:0.875rem;margin-bottom:12px;">More photos added regularly. Follow us on social media to stay updated!</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="#" class="btn btn-primary">📘 Facebook Albums</a>
+        <a href="#" class="btn" style="border:2px solid var(--primary);color:var(--primary);">▶️ YouTube Channel</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Gallery CTA -->
+<!-- Video Gallery Section -->
+<section class="section-pad" style="background:var(--light);">
+  <div class="container">
+    <div class="text-center" data-aos="fade-up">
+      <div class="section-tag">Video Gallery</div>
+      <h2 class="section-title">Watch Us in Action</h2>
+      <p class="section-sub">Videos from our annual events, sports competitions, cultural programs, and classroom activities.</p>
+    </div>
+
+    <div class="video-grid" data-aos="fade-up">
+
+      <div class="video-card">
+        <div class="video-thumb" style="background:linear-gradient(135deg,#8e44ad,#9b59b6);">
+          <div class="g-emoji" style="position:absolute;font-size:3rem;opacity:0.3;">🎭</div>
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-info">
+          <h4>Annual Day 2025 — Full Program</h4>
+          <span>🎬 Cultural Event • 45 mins</span>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" style="background:linear-gradient(135deg,#27ae60,#2ecc71);">
+          <div class="g-emoji" style="position:absolute;font-size:3rem;opacity:0.3;">⚽</div>
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-info">
+          <h4>Sports Day 2025 — Highlights</h4>
+          <span>🎬 Sports • 20 mins</span>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" style="background:linear-gradient(135deg,#1A3C6E,#2557A7);">
+          <div class="g-emoji" style="position:absolute;font-size:3rem;opacity:0.3;">🏫</div>
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-info">
+          <h4>Campus Tour — Wisdom High School</h4>
+          <span>🎬 Campus • 8 mins</span>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" style="background:linear-gradient(135deg,#c0392b,#e74c3c);">
+          <div class="g-emoji" style="position:absolute;font-size:3rem;opacity:0.3;">🏆</div>
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-info">
+          <h4>Board Toppers Felicitation Ceremony</h4>
+          <span>🎬 Achievement • 15 mins</span>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" style="background:linear-gradient(135deg,#e67e22,#f39c12);">
+          <div class="g-emoji" style="position:absolute;font-size:3rem;opacity:0.3;">🧘</div>
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-info">
+          <h4>Yoga Day Celebration 2025</h4>
+          <span>🎬 Health & Wellness • 12 mins</span>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" style="background:linear-gradient(135deg,#16a085,#1abc9c);">
+          <div class="g-emoji" style="position:absolute;font-size:3rem;opacity:0.3;">🇮🇳</div>
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-info">
+          <h4>Republic Day & Independence Day Programs</h4>
+          <span>🎬 National Events • 30 mins</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Events Calendar -->
+<section class="section-pad">
+  <div class="container">
+    <div class="text-center" data-aos="fade-up">
+      <div class="section-tag">Upcoming Events</div>
+      <h2 class="section-title">Events & Important Dates 2026–27</h2>
+      <p class="section-sub">Mark your calendar — parents are always welcome to attend and support our students.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;" data-aos="fade-up">
+
+      <div style="background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);">
+        <div style="background:linear-gradient(135deg,var(--accent),#e74c3c);padding:16px 20px;display:flex;align-items:center;gap:14px;">
+          <div style="font-size:2rem;">📝</div>
+          <div>
+            <div style="color:rgba(255,255,255,0.75);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;">Ongoing</div>
+            <div style="color:white;font-weight:700;">Admissions 2026–27</div>
+          </div>
+        </div>
+        <div style="padding:16px 20px;"><p style="font-size:0.85rem;color:var(--text-muted);">Admissions open for all classes — Baby Class to 10th Class. Call 8184873311 to secure your seat.</p></div>
+      </div>
+
+      <div style="background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);">
+        <div style="background:linear-gradient(135deg,#E8A020,#d4911c);padding:16px 20px;display:flex;align-items:center;gap:14px;">
+          <div style="font-size:2rem;">🇮🇳</div>
+          <div>
+            <div style="color:rgba(255,255,255,0.75);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;">August 15, 2026</div>
+            <div style="color:white;font-weight:700;">Independence Day</div>
+          </div>
+        </div>
+        <div style="padding:16px 20px;"><p style="font-size:0.85rem;color:var(--text-muted);">Grand Independence Day celebration with cultural programs, flag hoisting, and NCC parade.</p></div>
+      </div>
+
+      <div style="background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);">
+        <div style="background:linear-gradient(135deg,#27ae60,#2ecc71);padding:16px 20px;display:flex;align-items:center;gap:14px;">
+          <div style="font-size:2rem;">⚽</div>
+          <div>
+            <div style="color:rgba(255,255,255,0.75);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;">November 2026</div>
+            <div style="color:white;font-weight:700;">Annual Sports Day</div>
+          </div>
+        </div>
+        <div style="padding:16px 20px;"><p style="font-size:0.85rem;color:var(--text-muted);">Sports competitions, athletic events, team games, and prize distribution. All parents invited.</p></div>
+      </div>
+
+      <div style="background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);">
+        <div style="background:linear-gradient(135deg,#8e44ad,#9b59b6);padding:16px 20px;display:flex;align-items:center;gap:14px;">
+          <div style="font-size:2rem;">🎭</div>
+          <div>
+            <div style="color:rgba(255,255,255,0.75);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;">January 2027</div>
+            <div style="color:white;font-weight:700;">Annual Day Celebration</div>
+          </div>
+        </div>
+        <div style="padding:16px 20px;"><p style="font-size:0.85rem;color:var(--text-muted);">Grand Annual Day with cultural performances, drama, dances, prize distributions, and toppers felicitation.</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
 <section class="section-pad admission-cta">
   <div class="container">
     <div class="cta-inner" data-aos="fade-up">
-      <div class="section-tag" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3);">Join Us</div>
-      <h2 style="color:white;">Capture the Joy of Learning</h2>
-      <p style="color:rgba(255,255,255,0.9);font-size:1rem;">Every photograph at Wisdom High School tells a story of ambition, growth, and community.</p>
+      <div class="section-tag" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3);">Your Child's Story Starts Here</div>
+      <h2>Be Part of Our Gallery Next Year!</h2>
+      <p style="color:rgba(255,255,255,0.85);">Enroll your child at Wisdom High School and create memories that last a lifetime.<br>Baby Class to 10th Class | Recognised by Govt. of AP</p>
       <div class="cta-btns" style="margin-top:28px;">
-        <a href="admissions.html" class="btn btn-secondary" style="font-size:1.1rem;padding:16px 36px;">Apply Now</a>
-        <a href="contact.html" class="btn btn-outline" style="font-size:1rem;padding:14px 28px;">Visit the Campus</a>
+        <a href="admissions.html" class="btn btn-secondary" style="font-size:1rem;padding:14px 32px;">📝 Apply for Admission</a>
+        <a href="tel:8184873311" class="btn btn-outline" style="font-size:1rem;padding:14px 32px;">📞 8184873311</a>
       </div>
     </div>
   </div>
@@ -154,10 +622,8 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="logo-wrap footer-logo-wrap">
-            <div class="logo-icon footer-logo">
-              <img src="assets/icons/logo.jpg" alt="Wisdom High School Logo">
-            </div>
+          <a href="index.html" class="logo-wrap" style="margin-bottom:16px;display:inline-flex;">
+            <div class="logo-icon" style="width:48px;height:48px;font-size:1.3rem;">🎓</div>
             <div class="logo-text">
               <div class="school-name">Wisdom High School</div>
               <div class="school-location">Brahmanakotkur, Nandyal Dist.</div>
@@ -185,10 +651,10 @@
         <div class="footer-col">
           <h4>Gallery</h4>
           <div class="footer-links">
-            <a href="gallery.html">Campus Life</a>
-            <a href="gallery.html">Events</a>
-            <a href="gallery.html">Sports</a>
-            <a href="gallery.html">Labs</a>
+            <a href="gallery.html?filter=cultural">Cultural Events</a>
+            <a href="gallery.html?filter=sports">Sports</a>
+            <a href="gallery.html?filter=annualday">Annual Day</a>
+            <a href="gallery.html?filter=achievements">Achievements</a>
           </div>
         </div>
         <div class="footer-col">
@@ -197,7 +663,7 @@
             <a href="tel:8184873311">📞 8184873311</a>
             <a href="#">📍 Brahmanakotkur (V)</a>
             <a href="#">🏘️ Nandikotkur (M)</a>
-            <a href="#">📮 Nandyal District, AP</a>
+            <a href="#">📮 Nandyal Dist., AP</a>
           </div>
         </div>
       </div>
@@ -205,13 +671,103 @@
   </div>
   <div class="container">
     <div class="footer-bottom">
-      <p>© 2026 Wisdom High School, Brahmanakotkur. Recognised by Govt. of AP. All Rights Reserved.</p>
+      <p>© 2026 Wisdom High School, Brahmanakotkur. Recognised by Govt. of AP. All Rights Reserved. Developed by Shaik Lalu Basha | Contact: 7993417685.</p>
     </div>
   </div>
 </footer>
 
+<!-- Lightbox -->
+<div id="lightbox">
+  <button id="lbClose">✕</button>
+  <button id="lbPrev">‹</button>
+  <button id="lbNext">›</button>
+  <div class="lb-content">
+    <div class="lb-box" id="lbBox"></div>
+    <div class="lb-title" id="lbTitle"></div>
+    <div class="lb-cat" id="lbCat"></div>
+  </div>
+</div>
+
 <a href="https://wa.me/918184873311" id="whatsappFloat" target="_blank">💬</a>
 <button id="scrollTop">↑</button>
+
 <script src="assets/js/main.js"></script>
+<script>
+  // ── Gallery Filter ──
+  const pills = document.querySelectorAll('.cat-pill');
+  const items = document.querySelectorAll('.g-item');
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const filter = pill.getAttribute('data-filter');
+      items.forEach(item => {
+        if (filter === 'all' || item.getAttribute('data-cat') === filter) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // ── Lightbox ──
+  const lightbox = document.getElementById('lightbox');
+  const lbBox = document.getElementById('lbBox');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbCat = document.getElementById('lbCat');
+  const lbClose = document.getElementById('lbClose');
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+
+  let allItems = [];
+  let currentIdx = 0;
+
+  function openLightbox(idx) {
+    const item = allItems[idx];
+    if (!item) return;
+    currentIdx = idx;
+    lbBox.style.background = item.dataset.lbbg || 'var(--primary)';
+    lbBox.textContent = item.dataset.lbemoji || '🖼️';
+    lbBox.style.fontSize = '7rem';
+    lbBox.style.display = 'flex';
+    lbBox.style.alignItems = 'center';
+    lbBox.style.justifyContent = 'center';
+    lbTitle.textContent = item.dataset.title || '';
+    lbCat.textContent = (item.dataset.cat || '').toUpperCase();
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.g-item').forEach((item, idx) => {
+    allItems.push(item);
+    item.addEventListener('click', () => openLightbox(idx));
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  lbPrev.addEventListener('click', e => { e.stopPropagation(); openLightbox((currentIdx - 1 + allItems.length) % allItems.length); });
+  lbNext.addEventListener('click', e => { e.stopPropagation(); openLightbox((currentIdx + 1) % allItems.length); });
+  document.addEventListener('keydown', e => {
+    if (lightbox.classList.contains('open')) {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') openLightbox((currentIdx - 1 + allItems.length) % allItems.length);
+      if (e.key === 'ArrowRight') openLightbox((currentIdx + 1) % allItems.length);
+    }
+  });
+
+  // Video cards click (placeholder)
+  document.querySelectorAll('.video-card').forEach(card => {
+    card.addEventListener('click', () => {
+      alert('Video player coming soon! Subscribe to our YouTube channel for all school videos.');
+    });
+  });
+</script>
 </body>
 </html>
